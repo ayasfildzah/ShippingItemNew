@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ShippingItem</string>
+    <array name="Jalan">
+        <item>Jalan</item>
+    </array>
+    <array name="Tiba">
+        <item>Tiba</item>
+    </array>
+    <array name="Pasang">
+        <item>Pasang</item>
+    </array>
+    <array name="Pending">
+        <item>Pending</item>
+    </array>
+    <array name="Selesai">
+        <item>Selesai</item>
+    </array>
+</resources>
