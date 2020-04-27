@@ -1,47 +1,61 @@
 package com.mkp.shippingitem.Pasang;
 
-import android.content.Context;
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.mkp.shippingitem.Controller.UrlJsonAsyncTask;
 import com.mkp.shippingitem.MainActivity;
 import com.mkp.shippingitem.R;
-import com.mkp.shippingitem.ShowHistory;
+import com.mkp.shippingitem.ShowPesan;
+import com.mkp.shippingitem.model.ResponseShippingInsert;
+import com.mkp.shippingitem.util.AppConstant;
+import com.mkp.shippingitem.util.LogHelper;
 
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class AddPasang extends AppCompatActivity {
 
-    private final static String CREATE_TASK_URL = "https://alita.massindo.com/api/v1/shipping_items";
-    /*private EditText editTextNama;*/
-    private EditText editTextNumber ;
-    /*private Button btnsubmit;*/
-    private  EditText kode_qr;
-    private String mTaskNumber;
-    private  String mTaskStatus, mTaskNote;
-    Spinner spinner;
+    private static final String TAG = MainActivity.class.getName();
+    private final String serverUrl = "https://alita.massindo.com/api/v1/shipping_items";
+
+    private String enteredDelivery, enteredStatus, enteredNote,enteredCreator,enteredPhone,enteredAlamat;
+    private EditText editDeliv, editNote,kode_qr;
+
+    Spinner spinnerStatus;
+    TextView LgUser,editalamat,editPhone;
+    Button btnScan;
+    private String userLg,phoneLg;
     private SharedPreferences mPreferences;
+    LocationManager locationManager;
+    LocationListener locationListener;
 
 
 
@@ -49,24 +63,117 @@ public class AddPasang extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pasang);
 
+        editDeliv = findViewById(R.id.editTextNumber);
+        if (editDeliv.getText().toString().length() == 0) {
+            editDeliv.setError("Surat Jalan diperlukan (Tidak boleh Kosong)!"); }
+        editNote = findViewById(R.id.editTextNote);
+        LgUser = findViewById(R.id.LgUser);
+        spinnerStatus = findViewById(R.id.spinnerStatus);
+        editalamat = findViewById(R.id.editTextAlamat);
+        editPhone = findViewById(R.id.Phone);
 
-        editTextNumber = findViewById(R.id.editTextNumber);
-        spinner = findViewById(R.id.spinnerStatus);
-        mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+
+        Button AddButton = findViewById(R.id.btnsubmit);
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        boolean isGPS_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (isGPS_enabled) {
+            locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+
+                    double longitude = location.getLongitude();
+                    double latitude = location.getLatitude();
+
+                    try {
+                        Geocoder geocoder = new Geocoder(AddPasang.this, Locale.getDefault());
+                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+
+                        editalamat.setText(addressList.get(0).getAddressLine(0));
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                public void onProviderEnabled(String provider) {
+
+                }
+
+
+                public void onProviderDisabled(String provider) {
+
+                }
+
+            };
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        }else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
+
+        }
+
+        //// insert button
+        AddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AddPasang.insertShipping().execute();
+                Intent intent = new Intent(AddPasang.this, ShowPesan.class);
+                startActivity(intent);
+            }
+        });
 
 
         kode_qr = findViewById(R.id.editTextNumber);
         final IntentIntegrator intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.setBeepEnabled(true);
         intentIntegrator.setCameraId(0);
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        btnScan = findViewById(R.id.fab);
+        btnScan.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 intentIntegrator.initiateScan();
             }
 
         });
+
+
+        mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+
+        //get SharedPreferences dari Login
+        userLg = mPreferences.getString("name","");
+        phoneLg = mPreferences.getString("phone","");
+        LgUser.setText(userLg);
+        editPhone.setText(phoneLg);
+
+    }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                editalamat.setText("Getting Location");
+                //  editAlamat.setText("Getting Location");
+
+            } else {
+                editalamat.setText("Access not granted");
+                //  editAlamat.setText("Access not granted");
+
+            }
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -81,13 +188,13 @@ public class AddPasang extends AppCompatActivity {
                     //converting the data to json
                     JSONObject obj = new JSONObject(result.getContents());
                     //setting values to textviews
-                    editTextNumber.setText(obj.getString("textPersonName"));
+                    editDeliv.setText(obj.getString("textPersonName"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     String contents = data.getStringExtra("SCAN_RESULT");
                     Toast.makeText(getBaseContext(), "Hasil :" + contents, Toast.LENGTH_SHORT).show();
-                    editTextNumber.setText(contents);
+                    editDeliv.setText(contents);
                 }
             }
         } else {
@@ -95,104 +202,49 @@ public class AddPasang extends AppCompatActivity {
         }
     }
 
-
-    public void saveTask1(View button) {
-        Intent intent = new Intent(AddPasang.this, ShowHistory.class);
-        startActivity(intent);
-        EditText taskNumberField = (EditText) findViewById(R.id.editTextNumber);
-        mTaskNumber = taskNumberField.getText().toString();
-
-        EditText taskRateField = findViewById(R.id.editTextNote);
-        mTaskNote= taskRateField.getText().toString();
-
-        Spinner taskNameField = findViewById(R.id.spinnerStatus);
-        mTaskStatus = taskNameField.getSelectedItem().toString();
-
-        if (mTaskNumber.length() == 0) {
-            // input fields are empty
-            Toast.makeText(this,
-                    "Please write something as a title for this satisfactions",
-                    Toast.LENGTH_LONG).show();
-            return;
-        } else {
-            // everything is ok!
-            AddPasang.CreateTaskTask createTask = new AddPasang.CreateTaskTask(AddPasang.this);
-            createTask.setMessageLoading("Creating new satisfactions...");
-            createTask.execute(CREATE_TASK_URL);
-        }
-    }
-
-    public void View(View view) {
-        Intent intent = new Intent(AddPasang.this,ShowHistory.class);
-        startActivity(intent);
-    }
-
-
-
-    private class CreateTaskTask extends UrlJsonAsyncTask {
-        public CreateTaskTask(Context context) {
-            super(context);
-        }
+    private class insertShipping extends AsyncTask<String, Void, ResponseShippingInsert> {
+        private ProgressDialog pgDialog = new ProgressDialog(AddPasang.this);
 
         @Override
-        protected JSONObject doInBackground(String... urls) {
-            DefaultHttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost(urls[0]);
-            JSONObject holder = new JSONObject();
-            JSONObject taskObj = new JSONObject();
-            String response = null;
-            JSONObject json = new JSONObject();
+        protected void onPreExecute() {
 
-            try {
-                try {
-                    json.put("success", "");
-                    json.put("info", "Something went wrong. Retry!");
-                    taskObj.put("delivery_number", mTaskNumber);
-                    taskObj.put("status", mTaskStatus);
-                    taskObj.put("note",mTaskNote);
-                    holder.put("shipping_item", taskObj);
-                    StringEntity se = new StringEntity(holder.toString());
-                    post.setEntity(se);
-                    post.setHeader("Accept", "application/json");
-                    post.setHeader("Content-Type", "application/json");
-                    post.setHeader("Authorization", "Token token=" + mPreferences.getString("AuthToken", " "));
-
-                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                    response = client.execute(post, responseHandler);
-                    json = new JSONObject(response);
-
-                } catch (HttpResponseException e) {
-                    e.printStackTrace();
-                    Log.e("ClientProtocol", "" + e);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e("IO", "" + e);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e("JSON", "" + e);
-            }
-
-            return json;
+            pgDialog.setMessage("\tMohon Tunggu");
+            pgDialog.setCancelable(false);
+            pgDialog.show();
         }
 
+        @SuppressLint("WrongThread")
         @Override
-        protected void onPostExecute(JSONObject json) {
+        protected ResponseShippingInsert doInBackground(String... strings) {
+            enteredDelivery = editDeliv.getText().toString();
+            if (editDeliv.getText().toString().length() == 0) {
+                editDeliv.setError("Surat Jalan diperlukan (Tidak boleh Kosong)!"); }
+            enteredCreator = LgUser.getText().toString();
+            enteredStatus = spinnerStatus.getSelectedItem().toString();
+            enteredNote = editNote.getText().toString();
+            enteredAlamat = editalamat.getText().toString();
+            enteredPhone = editPhone.getText().toString();
+
             try {
-                if (json.getBoolean("input berhasil")) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
+                return AppConstant.getShippingInsertPresenterApi().insShipping(AddPasang.this, enteredDelivery,enteredCreator,enteredStatus, enteredNote, enteredAlamat,enteredPhone);
             } catch (Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-            } finally {
-                super.onPostExecute(json);
+                e.printStackTrace();
             }
+            return null;
         }
 
 
+        @Override
+        protected void onPostExecute(ResponseShippingInsert result) {
+            super.onPostExecute(result);
+            pgDialog.dismiss();
+            try {
 
+                LogHelper.verbose(TAG,"RESULT SHIPPING :"+result);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                LogHelper.verbose(TAG, e.getMessage());
+            }
+        }
     }
 }

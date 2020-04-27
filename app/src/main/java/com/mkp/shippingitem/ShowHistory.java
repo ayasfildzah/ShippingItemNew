@@ -1,12 +1,9 @@
 package com.mkp.shippingitem;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,12 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mkp.shippingitem.Jalan.AddJalan;
 import com.mkp.shippingitem.Pasang.AddPasang;
-import com.mkp.shippingitem.Pending.AddPending;
-import com.mkp.shippingitem.Selesai.AddSelesai;
-import com.mkp.shippingitem.Tiba.AddTiba;
+import com.mkp.shippingitem.ShippingAdd.AddJalan;
+import com.mkp.shippingitem.ShippingAdd.AddPending;
+import com.mkp.shippingitem.ShippingAdd.AddSelesai;
+import com.mkp.shippingitem.ShippingAdd.AddTiba;
 import com.mkp.shippingitem.adapter.ModelAdapter;
 import com.mkp.shippingitem.model.DataModel;
 import com.mkp.shippingitem.util.AppConstant;
@@ -40,8 +41,10 @@ public class ShowHistory extends AppCompatActivity  implements SearchView.OnQuer
     LayoutInflater inflater;
     View dialogView;
     EditText txt_no, txt_rate ;
-    TextView txt_hasil;
+    TextView txt_hasil,LgUser;
     FloatingActionButton fab;
+    private SharedPreferences mPreferences;
+    private String userLg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class ShowHistory extends AppCompatActivity  implements SearchView.OnQuer
         setContentView(R.layout.activity_show_history);
 
         SubjectListView = findViewById(R.id.listview1);
+        LgUser = findViewById(R.id.LgUser);
 
         editText = findViewById(R.id.edittext1);
 
@@ -68,6 +72,11 @@ public class ShowHistory extends AppCompatActivity  implements SearchView.OnQuer
                 DialogForm();
             }
         });
+        mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+
+        //get SharedPreferences dari Login
+        userLg = mPreferences.getString("creator","");
+        LgUser.setText(userLg);
     }
 
     private void DialogForm() {
@@ -145,7 +154,7 @@ public class ShowHistory extends AppCompatActivity  implements SearchView.OnQuer
         protected ArrayList<DataModel> doInBackground(String... strings) {
 
             try {
-                return AppConstant.getApi().dm(ShowHistory.this);
+                return AppConstant.getApiShippingList().dm(ShowHistory.this);
             } catch (Exception e1) {
                 LogHelper.verbose(TAG, "doInBackground " + e1);
             }

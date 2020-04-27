@@ -3,27 +3,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mkp.shippingitem">
 
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".adapter.AppController"
         android:allowBackup="true"
         android:icon="@drawable/deliv"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/deliv"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Invoice.AddShow"></activity>
+        <activity android:name=".Invoice.InvoiceInsert" />
+        <activity android:name=".Attadance.ListAbsen" />
+        <activity android:name=".Attadance.CheckoutActivity" />
+        <activity android:name=".Attadance.AbsenSakit" />
+        <activity android:name=".Attadance.IzinActivity" />
+        <activity android:name=".Attadance.ShowAbsen" />
+        <activity android:name=".Attadance.Checkin" />
+        <activity android:name=".AccountFragment" />
+        <activity android:name=".Attadance.AddMarker" />
+        <activity
+            android:name=".QrBarcode"
+            android:parentActivityName=".UserActivity" />
+        <activity
+            android:name=".Barcode"
+            android:parentActivityName=".UserActivity" />
+        <activity android:name=".SplashScreen" />
 
-        <activity android:name=".ShowPesan"></activity>
-        <activity android:name=".ShowHistory" />
-        <activity android:name=".Tiba.AddTiba" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBDTJ_YrC9Np-xHXkzo93FqLmg004st14A" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Selesai.AddSelesai" />
-        <activity android:name=".Pending.AddPending" />
-        <activity android:name=".Pasang.AddPasang" />
-        <activity android:name=".Jalan.AddJalan" />
+        <activity android:name=".DialogAdd" />
+        <activity
+            android:name=".UserActivity"
+            android:label="Welcome" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="About Us"
+            android:parentActivityName=".DialogAdd" />
+        <activity
+            android:name=".ShowPesan"
+            android:label="Riwayat Pengiriman"
+            android:parentActivityName=".UserActivity" />
+        <activity
+            android:name=".ShowHistory"
+            android:label="Riwayat Pengiriman" />
+        <activity android:name=".ShippingAdd.AddJalan" />
+        <activity
+            android:name=".ShippingAdd.AddSelesai"
+            android:label="Insert Supir Selesai" />
+        <activity
+            android:name=".ShippingAdd.AddPending"
+            android:label="Insert Supir Pending" />
+        <activity
+            android:name=".Pasang.AddPasang"
+            android:label="Insert Supir Pasang" />
+        <activity android:name=".ShippingAdd.AddTiba" />
+        <activity
+            android:name=".Maps"
+            android:label="Maps berdasarkan Google" />
+        <activity android:name=".FragmentBottom" />
+        <activity android:name=".Invoice.ShowInvoice"/>
+        <activity android:name=".Invoice_Recap_details"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

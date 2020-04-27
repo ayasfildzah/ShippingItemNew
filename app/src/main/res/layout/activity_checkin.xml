@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Attadance.Checkin"
+    android:background="#fff">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/template"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <DigitalClock
+            android:id="@+id/digitalClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:textColor="#F5F8FA"
+            android:textSize="24sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Anda Dapat Check-in Jika Jarak Anda Max 1000 m"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:drawableLeft="@drawable/ic_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PT Massindo Karya Prima Bekasi"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/mkpbks"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:padding="15dp"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_info"/>
+            <TextView
+                android:drawableLeft="@drawable/ic_petik"
+                android:drawableRight="@drawable/ic_petik"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mohon Periksa Kembali"
+                android:textSize="18sp"
+                android:textColor="#100F0F"
+
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+               <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="60dp"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOKASI SAYA"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/alamat"
+                android:drawableLeft="@drawable/ic_loc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/txt_lokasiSaya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X, Y"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:layout_gravity="center"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jarak Anda Saat ini :"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:id="@+id/txt_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X meter"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp"
+                    android:layout_centerHorizontal="true"/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_cekin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Check In"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@android:color/black"
+                android:background="@drawable/background_profile"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".DialogAdd">
+    tools:context=".ShowPesan">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -23,14 +23,103 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/activity_show_history" />
+    <include layout="@layout/activity_show_pesan" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="#fff"
+        >
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_edit" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_menu_navigation">
+
+    <LinearLayout
+        android:id="@+id/menu_about"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:onClick="about"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_about"
+
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:textSize="9sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/menu_home"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:onClick="home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_home"
+
+            />
+        <TextView
+            android:id="@+id/label_menu_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textSize="9sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/menu_account"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:id="@+id/btn_logout"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_out"/>
+        <TextView
+            android:id="@+id/label_menu_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keluar"
+            android:textSize="9sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+    </LinearLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

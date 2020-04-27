@@ -1,115 +1,143 @@
 package com.mkp.shippingitem;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
-import com.mkp.shippingitem.Controller.RequestHandler;
-import com.mkp.shippingitem.Jalan.AddJalan;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.mkp.shippingitem.adapter.ModelAdapter;
+import com.mkp.shippingitem.model.DataModel;
+import com.mkp.shippingitem.util.AppConstant;
+import com.mkp.shippingitem.util.LogHelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class ShowPesan extends AppCompatActivity implements ListView.OnItemClickListener {
-
-
-    private ListView listView;
-
-    private String JSON_STRING;
-
+public class ShowPesan extends AppCompatActivity  implements SearchView.OnQueryTextListener {
+    private static final String TAG = ShowPesan.class.getName();
+    ListView SubjectListView;
+    private SearchView editText;
+    Toolbar toolbar;
+    String creator;
+    ImageView btn_logout;
+    SharedPreferences mPreferences;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_shipping);
-        listView = findViewById(R.id.listItem);
-        listView.setOnItemClickListener(this);
-        getJSON();
+        setContentView(R.layout.activity_dialog_add);
+
+        SubjectListView = (ListView) findViewById(R.id.listview1);
+
+        editText = (SearchView) findViewById(R.id.edittext1);
+
+      //  mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+
+        //get SharedPreferences dari Login
+       // creator = mPreferences.getString("creator","");
+        //editText.setFilterTouchesWhenObscured(creator);
+        new req().execute();
+
+        SubjectListView.setTextFilterEnabled(true);
+        setupSearchView();
+        btn_logout = findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.clear();
+                editor.commit();
+
+                Intent intent = new Intent(ShowPesan.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+
+
+            }
+        });
+
     }
 
+    private void setupSearchView() {
+        editText.setIconifiedByDefault(false);
+        editText.setOnQueryTextListener(this);
+        editText.setSubmitButtonEnabled(true);
+        editText.setQueryHint("Search Here");
+    }
 
-    private void showRate() {
-        JSONObject jsonObject;
-        ArrayList<HashMap<String, String>> list = new ArrayList<>();
-        try {
-            jsonObject = new JSONObject(JSON_STRING);
-            JSONArray result = jsonObject.getJSONArray(konfigurasi.TAG_JSON_ARRAY3);
+    @Override
+    public boolean onQueryTextChange(String newText) {
 
-            for (int i = 0; i < result.length(); i++) {
-                JSONObject ok = result.getJSONObject(i);
-                String deliv = ok.getString(konfigurasi.TAG_Delivnum);
-
-                String nt = ok.getString(konfigurasi.TAG_Note);
-
-                HashMap<String, String> pel = new HashMap<>();
-                pel.put(konfigurasi.TAG_Delivnum,deliv);
-
-                pel.put(konfigurasi.TAG_Note,nt);
-
-
-
-                list.add(pel);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (TextUtils.isEmpty(newText)) {
+            SubjectListView.clearTextFilter();
+        } else {
+            SubjectListView.setFilterText(newText);
         }
-
-        ListAdapter adapter = new SimpleAdapter(
-                ShowPesan.this, list, R.layout.activity_show_pesan,
-                new String[]{konfigurasi.TAG_Delivnum , konfigurasi.TAG_Note},
-                new int[]{R.id.delivnum, R.id.status});
-
-        listView.setAdapter(adapter);
+        return false;
     }
 
-    private void getJSON() {
-
-        class GetJSON extends AsyncTask<Void, Void, String> {
-
-            private ProgressDialog loading;
-
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(ShowPesan.this, "Mengambil Data", "Mohon Tunggu...", false, false);
-            }
-
-
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                JSON_STRING = s;
-                showRate();
-            }
-
-
-            protected String doInBackground(Void... params) {
-                RequestHandler rh = new RequestHandler();
-                return rh.sendGetRequest(konfigurasi.URL_All_ITEM);
-            }
-        }
-        GetJSON gj = new GetJSON();
-        gj.execute();
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, AddJalan.class);
-        HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String csId = map.get(konfigurasi.TAG_Idd);
-        intent.putExtra(konfigurasi.Kode_Idd, csId);
+    public void about(View view) {
+        Intent intent = new Intent(ShowPesan.this,FragmentBottom.class);
         startActivity(intent);
     }
 
+    public void home(View view) {
+        Intent intent = new Intent(ShowPesan.this,FragmentBottom.class);
+        startActivity(intent);
+    }
+
+    private class req extends AsyncTask<String, Void, ArrayList<DataModel>> {
+
+        ProgressDialog pgDialog = new ProgressDialog(ShowPesan.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pgDialog.setMessage("\t Please Wait");
+            pgDialog.setCancelable(false);
+            pgDialog.show();
+        }
+
+        @Override
+        protected ArrayList<DataModel> doInBackground(String... strings) {
+
+            try {
+                return AppConstant.getApiShippingList().dm(ShowPesan.this);
+            } catch (Exception e1) {
+                LogHelper.verbose(TAG, "doInBackground " + e1);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<DataModel> dataModels) {
+            super.onPostExecute(dataModels);
+            pgDialog.dismiss();
+            try {
+
+                final ModelAdapter adapter = new ModelAdapter(ShowPesan.this, dataModels);
+                SubjectListView.setAdapter(adapter);
+                LogHelper.verbose(TAG, "result: " + SubjectListView.getAdapter());
+
+            } catch (NullPointerException ei) {
+                ei.printStackTrace();
+                Toast.makeText(ShowPesan.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 
 }

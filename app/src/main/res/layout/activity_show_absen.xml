@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="#ffffff"
+    tools:context=".Attadance.ShowAbsen">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:id="@+id/edittext1"
+            android:layout_height="wrap_content">
+
+        </androidx.appcompat.widget.SearchView>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listvieww"
+            android:layout_below="@id/edittext1" />
+
+    </LinearLayout>
+</LinearLayout>

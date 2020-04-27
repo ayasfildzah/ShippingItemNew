@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_popup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".ShowHistory"
+    android:background="#fff">
+
+            <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Masukan Document Number"
+                        android:drawableLeft="@drawable/ic_petik"
+                        android:drawableRight="@drawable/ic_petik"
+                        android:textSize="16sp"
+                        android:textColor="#00897B"
+                        android:fontFamily="@font/arizonia"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ID :"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#5E35B1"
+                        />
+                    <EditText
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editID"
+                        android:textColorHint="#EE0E09"
+                        android:textSize="12sp"
+
+                        android:layout_marginLeft="10dp"
+                        android:inputType="textPersonName" />
+
+                    <TextView
+                        android:id="@+id/LgUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:visibility="gone"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/creat"
+                        android:textColor="#78777A"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="55dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scan Disini :"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#5E35B1"
+                        />
+                    <EditText
+                        android:layout_width="190dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/editTextNumber"
+                        android:hint=""
+                        android:textColorHint="#EE0E09"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="textPersonName" />
+
+                    <Button
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right|center"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@drawable/qr"
+                        android:id="@+id/fab"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="70dp">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Submit"
+                        android:textColor="#3949AB"
+                        android:id="@+id/btnsubmit"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/backgroundbutton"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+           <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="match_parent"
+                android:id="@+id/edittext1"
+                android:layout_height="30dp">
+
+            </androidx.appcompat.widget.SearchView>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listview1"
+                android:dividerHeight="0.5dp"
+                android:divider="#0A0A0B"
+                android:background="@drawable/list_row_selector"
+                android:layout_below="@id/edittext1" />
+
+        </LinearLayout>
+    </LinearLayout>

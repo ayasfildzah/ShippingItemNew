@@ -63,7 +63,7 @@ public class api {
                         model1.setId(jo1.getInt("id"));
                         model1.setDelivery_number(jo1.getString("delivery_number"));
                         model1.setSttus(jo1.getString("status"));
-                        model1.setCreated_at(jo1.getString("created_at"));
+                        model1.setNote(jo1.getString("created_at"));
 
                         data1.add(model1);
                     }

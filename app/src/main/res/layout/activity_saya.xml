@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/bg_top"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="#D81B60"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_hasil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="5dp"
+            android:text="Tekan Floating Action Button Untuk Memunculkan Dialog."/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:text="Selamat Datang "
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:fontFamily="@font/bad_script" />
+
+        <TextView
+            android:id="@+id/LgUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:text="Bukhori Muslim"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/noHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="43A87006150608"
+            android:textColor="#FDCECD"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="admin@massindo.com"
+            android:textColor="#FDCECD"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/userid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="User ID : "
+            android:textColor="#F7F1F8"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Iduser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="51"
+            android:textColor="#F7F3F8"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/kotak"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="50dp"
+        android:background="@android:color/white"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/barcode"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/barcodee"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID BARCODE"
+                android:textColor="@android:color/black"
+                android:textSize="12dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/qrcode"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/qrcodee"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QR CODE"
+                android:textColor="@android:color/black"
+                android:textSize="12dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kotak"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="Absen Please !!! "
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/relatif1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/kotak"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:background="#fff"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/menu_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center"
+            android:onClick="menuNavigationClick"
+            >
+            <ImageView
+                android:id="@+id/Checkinn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/checkmark"
+                />
+            <TextView
+                android:id="@+id/label_menu_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Check In"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textColor="@color/colorInActive"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_task"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center"
+            android:onClick="menuNavigationClick"
+            >
+            <ImageView
+                android:id="@+id/btnsakit"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/cough"/>
+            <TextView
+                android:id="@+id/label_menu_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sakit"
+                android:textSize="12sp"
+                android:textColor="#777"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_account"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center"
+            android:onClick="menuNavigationClick"
+            >
+            <ImageView
+                android:id="@+id/btnijin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/about"/>
+            <TextView
+                android:id="@+id/label_menu_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Izin"
+                android:textSize="12sp"
+                android:textColor="#777"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relatif1"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorInActive"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/listabsen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="15dp"
+            android:drawableRight="@drawable/ic_next"
+            android:textSize="20dp"
+            android:text="Check List Absen"
+            android:textColor="#0D0E0E" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorInActive"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/Invoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20dp"
+            android:onClick="invoice"
+            android:drawableRight="@drawable/ic_next"
+
+            android:paddingLeft="15dp"
+            android:text="Invoice Recap"
+            android:textColor="#0C0C0C" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorInActive"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20dp"
+            android:drawableRight="@drawable/ic_next"
+            android:paddingLeft="12dp"
+            android:text="Logout"
+            android:textColor="#0A0B0B" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorInActive"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

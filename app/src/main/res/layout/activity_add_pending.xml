@@ -1,85 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pending.AddPending"
-    android:padding="15dp">
+    tools:context=".ShippingAdd.AddPending"
+    android:padding="0dp"
+    android:background="#fff">
+    <LinearLayout
+        android:id="@+id/bg_top"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg3">
 
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="320sp"
+        android:background="#fff"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:padding="15dp"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masukan Document Number"
+                android:textSize="16sp"
+                android:textColor="#00897B"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_vertical">
+
+
+            <TextView
+                android:id="@+id/LgUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zulvera "
+                android:visibility="gone"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/creat"
+                android:textColor="#78777A"
+                android:textStyle="italic" />
+
+
+
+            <TextView
+                android:id="@+id/Phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09876547999"
+                android:visibility="gone"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/no"
+                android:textColor="#78777A"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="60dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scan Disini :"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#5E35B1"
+                />
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:id="@+id/editTextNumber"
+                android:hint="Surat Jalan Tidak Boleh Kosong"
+                android:textColorHint="#EE0E09"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right|center"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/qr"
+                android:id="@+id/fab"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="100dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status :"
+                android:textSize="14sp"
+                android:textColor="#5E35B1"/>
+            <Spinner
+                android:id="@+id/spinnerStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/Pending"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keterangan :"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#5E35B1"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/editTextNote"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:ems="100"
+                android:hint="Keterangan"
+                android:textColor="#78777A"
+                android:textSize="12sp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Submit"
+                android:textColor="#ffffff"
+
+                android:id="@+id/btnsubmit"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/backgroundbutton"/>
+
+        </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Masukan Document Number"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textColor="#00897B"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Scan Disini :"
-            android:textSize="14sp"
-            android:textColor="#5E35B1"
-            android:layout_marginTop="20dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextNumber"
-            android:hint="Document Number"
-            android:inputType="textPersonName" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:src="@drawable/qr"
-            android:id="@+id/fab"/>
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status :"
-            android:textSize="14sp"
-            android:textColor="#5E35B1"/>
-        <Spinner
-            android:id="@+id/spinnerStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/Pending" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Note/Keterangan :"
-            android:textSize="14sp"
-            android:textColor="#5E35B1"/>
-        <EditText
-            android:id="@+id/editTextNote"
+            android:id="@+id/editTextAlamat"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_loc"
+            android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:ems="400"
-            android:autofillHints=""
-            android:hint="Keterangan, Max 400 karakter"  />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="saveTask1"
-            android:text="Submit"
-            android:id="@+id/btnsubmit"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="View History"
-            android:onClick="View"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textColor="@color/colorPrimaryDark"/>
-
+            android:ems="100"
+            android:textColor="#F5F3F8"
+            android:textSize="12sp"/>
     </LinearLayout>
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        >
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_menu_navigation">
+
+    <LinearLayout
+        android:id="@+id/menu_about"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:onClick="about"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_about"
+
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:textSize="9sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/menu_home"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:onClick="home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_home"
+
+            />
+        <TextView
+            android:id="@+id/label_menu_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textSize="9sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/menu_account"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:id="@+id/btn_logout"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_out"/>
+        <TextView
+            android:id="@+id/label_menu_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keluar"
+            android:textSize="9sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

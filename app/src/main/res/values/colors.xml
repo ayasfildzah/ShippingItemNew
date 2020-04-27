@@ -11,6 +11,6 @@
     <color name="darkblue">#748EEE</color>
     <color name="testcolorblue">#152b38</color>
     <color name="pink">#039BE5</color>
-
+    <color name="colorInActive">#8E8D8A</color>
     <color name="black_overlay">#66000000</color>
 </resources>
